@@ -1,0 +1,38 @@
+# Flask核心框架
+Flask==2.3.3
+Flask-CORS==4.0.0
+
+# 数据库相关
+mysql-connector-python==8.2.0
+PyMySQL==1.1.0
+
+# 加密和安全
+cryptography==41.0.4
+
+# Redis缓存
+redis==5.0.1
+flask-caching==2.1.0
+
+# 文件转换库 - Word/PDF
+python-docx==1.1.0
+pdf2docx==0.5.6
+docx2pdf==0.1.8
+
+# 文件转换库 - PowerPoint
+python-pptx==0.6.23
+
+# 文件转换库 - Excel/数据处理
+pandas>=2.0.0
+openpyxl==3.1.2
+
+# 文件转换库 - 图片处理
+Pillow>=10.0.0
+
+# PDF处理
+PyPDF2==3.0.1
+
+# 验证码生成
+captcha==0.5.0
+
+# 工具库
+python-dateutil==2.8.2

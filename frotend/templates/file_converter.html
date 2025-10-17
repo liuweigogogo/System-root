@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文件格式转换工具</title>
+    <link rel="stylesheet" href="/css/converter.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>📄 文件格式转换工具</h1>
+            <p>支持多种文件格式之间的相互转换</p>
+        </header>
+
+        <main class="main-content">
+            <!-- 转换格式说明 -->
+            <section class="conversion-info">
+                <h2>🔄 支持的转换格式</h2>
+                <div class="format-grid" id="formatGrid">
+                    <!-- 动态加载支持的格式 -->
+                </div>
+            </section>
+
+            <!-- 单文件转换 -->
+            <section class="single-convert">
+                <h2>📁 单文件转换</h2>
+                <form id="singleConvertForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="singleFile">选择文件：</label>
+                        <input type="file" id="singleFile" name="file" accept=".docx,.pdf,.pptx,.xlsx,.csv,.json,.jpg,.jpeg,.png,.webp" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="singleTargetFormat">目标格式：</label>
+                        <select id="singleTargetFormat" name="target_format" required>
+                            <option value="">请选择目标格式</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <span class="btn-text">开始转换</span>
+                        <span class="btn-loading" style="display: none;">转换中...</span>
+                    </button>
+                </form>
+            </section>
+
+            <!-- 批量转换 -->
+            <section class="batch-convert">
+                <h2>📚 批量转换</h2>
+                <form id="batchConvertForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="batchFiles">选择文件（可多选）：</label>
+                        <input type="file" id="batchFiles" name="files" multiple accept=".docx,.pdf,.pptx,.xlsx,.csv,.json,.jpg,.jpeg,.png,.webp" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="batchTargetFormat">目标格式：</label>
+                        <select id="batchTargetFormat" name="target_format" required>
+                            <option value="">请选择目标格式</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <span class="btn-text">批量转换</span>
+                        <span class="btn-loading" style="display: none;">转换中...</span>
+                    </button>
+                </form>
+            </section>
+
+            <!-- 文件信息查看 -->
+            <section class="file-info">
+                <h2>ℹ️ 文件信息查看</h2>
+                <form id="fileInfoForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="infoFile">选择文件：</label>
+                        <input type="file" id="infoFile" name="file" accept=".docx,.pdf,.pptx,.xlsx,.csv,.json,.jpg,.jpeg,.png,.webp" required>
+                    </div>
+                    <button type="submit" class="btn btn-secondary">查看文件信息</button>
+                </form>
+                <div id="fileInfoResult" class="file-info-result" style="display: none;">
+                    <!-- 文件信息显示区域 -->
+                </div>
+            </section>
+
+            <!-- 转换结果 -->
+            <section class="convert-result" id="convertResult" style="display: none;">
+                <h2>✅ 转换结果</h2>
+                <div class="result-content">
+                    <!-- 转换结果内容 -->
+                </div>
+            </section>
+
+            <!-- 操作历史 -->
+            <section class="operation-history">
+                <h2>📋 操作历史</h2>
+                <div class="history-controls">
+                    <button id="clearHistory" class="btn btn-outline">清空历史</button>
+                    <button id="exportHistory" class="btn btn-outline">导出历史</button>
+                </div>
+                <div id="historyList" class="history-list">
+                    <!-- 操作历史列表 -->
+                </div>
+            </section>
+        </main>
+
+        <!-- 加载遮罩 -->
+        <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+            <div class="loading-spinner"></div>
+            <p>正在处理，请稍候...</p>
+        </div>
+
+        <!-- 消息提示 -->
+        <div id="messageToast" class="message-toast" style="display: none;">
+            <span class="message-text"></span>
+            <button class="message-close">&times;</button>
+        </div>
+    </div>
+
+    <script src="/js/file_converter.js"></script>
+</body>
+</html>

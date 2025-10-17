@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>系统后台登录</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="login-container">
+    <h2>系统后台登录</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="用户名" required>
+      <input type="password" id="password" placeholder="密码" required>
+
+      <div class="captcha-container">
+        <input type="text" id="captchaInput" placeholder="验证码" required>
+        <canvas id="captchaCanvas" width="100" height="40"></canvas>
+        <button type="button" id="refreshCaptcha">换一张</button>
+      </div>
+
+      <button type="submit">登录</button>
+    </form>
+  </div>
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  # MySQL 数据库服务
+  mysql:
+    image: mysql:8.0
+    container_name: flask_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: your_root_password
+      MYSQL_DATABASE: file_converter
+      MYSQL_USER: flask_user
+      MYSQL_PASSWORD: your_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - flask_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # Redis 缓存服务
+  redis:
+    image: redis:7-alpine
+    container_name: flask_redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - flask_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  # Flask 应用服务
+  web:
+    build: .
+    container_name: flask_app
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_USER=flask_user
+      - DB_PASSWORD=your_password
+      - DB_NAME=file_converter
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    volumes:
+      - ./frotend:/app
+      - ./logs:/app/logs
+      - upload_data:/app/uploads
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - flask_network
+
+  # Nginx 反向代理（可选，用于生产环境）
+  nginx:
+    image: nginx:alpine
+    container_name: flask_nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/nginx/ssl
+    depends_on:
+      - web
+    networks:
+      - flask_network
+
+volumes:
+  mysql_data:
+  redis_data:
+  upload_data:
+
+networks:
+  flask_network:
+    driver: bridge

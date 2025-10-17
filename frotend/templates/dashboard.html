@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>后台管理中心</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/converter_integrated.css">
+  <link rel="stylesheet" href="/css/tabs.css">
+</head>
+<body>
+  <div class="layout">
+    <!-- 左侧导航栏 -->
+    <aside class="sidebar" id="sidebar">
+      <div class="title">导航</div>
+      <a class="nav-item active" href="#" onclick="showPage('dashboard'); setActive(this); return false;">首页</a>
+      <a class="nav-item" href="#" onclick="setActive(this); return false;">用户管理</a>
+      <a class="nav-item" href="#" onclick="setActive(this); return false;">订单管理</a>
+      <a class="nav-item" href="#" onclick="setActive(this); return false;">库存管理</a>
+      <a class="nav-item" href="#" onclick="setActive(this); return false;">报表统计</a>
+      
+      <!-- 实用工具折叠菜单 -->
+      <div class="nav-item-group">
+        <a class="nav-item" href="#" onclick="toggleUtilsMenu(this); showPage('utilities'); return false;">
+          <span>🛠️ 实用工具</span>
+          <span class="nav-toggle" id="utils-toggle">▶</span>
+        </a>
+        <div class="nav-submenu" id="utils-submenu" style="display: none;">
+          <a class="nav-subitem" href="#" onclick="showPage('utilities'); openTab('file-converter', '🔄 文件格式转换'); return false;">
+            <span class="subitem-icon">🔄</span>
+            <span>文件转换</span>
+          </a>
+        </div>
+      </div>
+      
+      <div class="title">设置</div>
+      
+      <!-- 系统设置折叠菜单 -->
+      <div class="nav-item-group">
+        <a class="nav-item" href="#" onclick="toggleSystemMenu(this); showPage('system-settings'); return false;">
+          <span>⚙️ 系统设置</span>
+          <span class="nav-toggle" id="system-toggle">▶</span>
+        </a>
+        <div class="nav-submenu" id="system-submenu" style="display: none;">
+          <a class="nav-subitem" href="#" onclick="showPage('system-settings'); openTab('user-management', '👥 用户管理'); return false;">
+            <span class="subitem-icon">👥</span>
+            <span>用户管理</span>
+          </a>
+          <a class="nav-subitem" href="#" onclick="showPage('system-settings'); openTab('system-logs', '📋 系统日志'); return false;">
+            <span class="subitem-icon">📋</span>
+            <span>系统日志</span>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 顶部头部栏 -->
+    <header class="header">
+      <div class="header-left">
+        <button class="menu-toggle" onclick="toggleSidebar()">菜单</button>
+        <div class="brand">ERP 后台管理</div>
+      </div>
+      <div class="user-info">
+        <span id="username-display">用户</span>
+        <button class="logout-btn" onclick="logout()">退出登录</button>
+      </div>
+    </header>
+
+    <!-- 主内容区域 -->
+    <main class="main">
+      <!-- 首页内容 -->
+      <div id="dashboard-page" class="page-content">
+        <div class="welcome-message">
+          <h2>欢迎使用系统后台</h2>
+          <p>您已成功登录系统，可以开始使用各项功能。</p>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="dashboard-card">
+            <div class="card-title">系统状态</div>
+            <div class="card-content">
+              <p>系统运行正常，所有服务状态良好。</p>
+              <div class="stats-grid">
+                <div class="stat-item">
+                  <div class="stat-number" id="online-users">1</div>
+                  <div class="stat-label">在线用户</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-number">99.9%</div>
+                  <div class="stat-label">系统可用性</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-card">
+            <div class="card-title">快速操作</div>
+            <div class="card-content">
+              <p>常用功能快速访问：</p>
+              <ul style="margin: 15px 0; padding-left: 20px;">
+                <li><a href="/converter" style="color: #667eea; text-decoration: none;">🔄 文件转换</a></li>
+                <li><a href="/logs" style="color: #667eea; text-decoration: none;">📋 系统日志</a></li>
+                <li><a href="#" onclick="alert('功能开发中...')" style="color: #667eea; text-decoration: none;">👥 用户管理</a></li>
+                <li><a href="#" onclick="alert('功能开发中...')" style="color: #667eea; text-decoration: none;">⚙️ 系统设置</a></li>
+                <li><a href="#" onclick="alert('功能开发中...')" style="color: #667eea; text-decoration: none;">📊 数据统计</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="dashboard-card">
+            <div class="card-title">最近活动</div>
+            <div class="card-content">
+              <p>您的最近活动记录：</p>
+              <ul style="margin: 15px 0; padding-left: 20px;">
+                <li>登录系统 - 刚刚</li>
+                <li>查看仪表板 - 刚刚</li>
+                <li>系统初始化 - 今天</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 实用工具页面 -->
+      <div id="utilities-page" class="page-content" style="display: none;">
+        <!-- 页签容器（占据整个utilities-page） -->
+        <div class="tabs-container" id="tabsContainer" style="display: none; height: 100%;">
+          <div class="tabs-header">
+            <div class="tabs-list" id="tabsList">
+              <!-- 页签将动态添加到这里 -->
+            </div>
+          </div>
+          <div class="tabs-content" id="tabsContent">
+            <!-- 页签内容将动态添加到这里 -->
+          </div>
+        </div>
+        
+        <!-- 默认提示（无页签时显示） -->
+        <div class="no-tabs-placeholder" id="noTabsPlaceholder">
+          <div style="text-align: center; padding: 60px 20px; color: #999;">
+            <div style="font-size: 48px; margin-bottom: 20px;">📋</div>
+            <h3 style="color: #666; margin-bottom: 10px;">请从左侧菜单选择工具</h3>
+            <p>点击左侧菜单中的工具项，在此处打开工具页签</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 系统设置页面 -->
+      <div id="system-settings-page" class="page-content" style="display: none;">
+        <!-- 页签容器（占据整个system-settings-page） -->
+        <div class="tabs-container" id="systemTabsContainer" style="display: none; height: 100%;">
+          <div class="tabs-header">
+            <div class="tabs-list" id="systemTabsList">
+              <!-- 页签将动态添加到这里 -->
+            </div>
+          </div>
+          <div class="tabs-content" id="systemTabsContent">
+            <!-- 页签内容将动态添加到这里 -->
+          </div>
+        </div>
+        
+        <!-- 默认提示（无页签时显示） -->
+        <div class="no-tabs-placeholder" id="systemNoTabsPlaceholder">
+          <div style="text-align: center; padding: 60px 20px; color: #999;">
+            <div style="font-size: 48px; margin-bottom: 20px;">⚙️</div>
+            <h3 style="color: #666; margin-bottom: 10px;">请从左侧菜单选择设置项</h3>
+            <p>点击左侧菜单中的设置项，在此处打开设置页签</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- 引入JavaScript文件 -->
+  <script src="/js/tabs.js"></script>
+  <script src="/js/dashboard.js"></script>
+  <script src="/js/utilities.js"></script>
+  <script src="/js/converter_integrated.js"></script>
+  <script src="/js/user_management.js"></script>
+</body>
+</html>

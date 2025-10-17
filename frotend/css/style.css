@@ -1,0 +1,66 @@
+/* 背景渐变 + 可选纹理 */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #dceeff 0%, #a8cfff 100%);
+  background-image: url("../assets/pexels-suzyhazelwood-1629236.jpg");
+  background-blend-mode: overlay;
+}
+
+
+.login-container {
+  background-color: rgba(99, 177, 177,0.8); /* 最后的0.9是透明度 */
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.login-container input label button{
+  background-color: rgba(255, 255, 255, 0.9); /* 半透明白色 */
+  color: #000;  /* 输入文字黑色，清晰可见 */
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 4px;
+}
+.login-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+input {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+button {
+  width: 95%;
+  padding: 10px;
+  background: #2575fc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1a5edb;
+}
+
+.captcha-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#captchaCanvas {
+  border: 1px solid #ccc;
+  margin-left: 5px;
+}

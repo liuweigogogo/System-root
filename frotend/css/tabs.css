@@ -1,0 +1,185 @@
+/**
+ * 页签系统样式
+ * 类似浏览器标签页的样式设计
+ */
+
+/* 页签容器 */
+.tabs-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* 页签头部 */
+.tabs-header {
+    background: #f8f9fa;
+    border-bottom: 2px solid #e9ecef;
+    padding: 0;
+    min-height: 48px;
+    display: flex;
+    align-items: flex-end;
+}
+
+/* 页签列表 */
+.tabs-list {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0 10px;
+    gap: 2px;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
+}
+
+.tabs-list::-webkit-scrollbar {
+    height: 6px;
+}
+
+.tabs-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.tabs-list::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+
+.tabs-list::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}
+
+/* 单个页签项 */
+.tab-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: #e9ecef;
+    border: 1px solid #dee2e6;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    position: relative;
+    min-width: 120px;
+    max-width: 220px;
+}
+
+.tab-item:hover {
+    background: #dee2e6;
+}
+
+.tab-item.active {
+    background: #fff;
+    border-color: #e9ecef;
+    border-bottom-color: #fff;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+    z-index: 1;
+}
+
+/* 页签标题 */
+.tab-title {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 14px;
+    color: #495057;
+    font-weight: 500;
+}
+
+.tab-item.active .tab-title {
+    color: #667eea;
+    font-weight: 600;
+}
+
+/* 页签关闭按钮 */
+.tab-close {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-size: 18px;
+    line-height: 1;
+    color: #6c757d;
+    transition: all 0.2s ease;
+}
+
+.tab-close:hover {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+}
+
+/* 页签内容区域 */
+.tabs-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #fff;
+    position: relative;
+}
+
+/* 单个页签内容面板 */
+.tab-pane {
+    display: none;
+    height: 100%;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+/* 淡入动画 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 无页签时的占位符 */
+.no-tabs-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background: #fff;
+    border-radius: 8px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .tab-item {
+        min-width: 100px;
+        max-width: 150px;
+        padding: 8px 12px;
+    }
+    
+    .tab-title {
+        font-size: 13px;
+    }
+    
+    .tab-close {
+        width: 18px;
+        height: 18px;
+        font-size: 16px;
+    }
+    
+    .tab-pane {
+        padding: 15px;
+    }
+}
