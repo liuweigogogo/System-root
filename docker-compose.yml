@@ -9,6 +9,11 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_DATABASE: file_converter
+<<<<<<< Updated upstream
+=======
+      MYSQL_USER: root
+      MYSQL_PASSWORD: Flask@2024!Secure
+>>>>>>> Stashed changes
     # 端口不对外暴露，仅容器内部通信
     # ports:
     #   - "3306:3306"
@@ -51,7 +56,11 @@ services:
       - DB_HOST=mysql
       - DB_PORT=3306
       - DB_USER=root
+<<<<<<< Updated upstream
       - DB_PASSWORD=123456
+=======
+      - DB_PASSWORD=Flask@2024!Secure
+>>>>>>> Stashed changes
       - DB_NAME=file_converter
       - REDIS_HOST=redis
       - REDIS_PORT=6379
