@@ -11,8 +11,9 @@ services:
       MYSQL_DATABASE: file_converter
       MYSQL_USER: flask_user
       MYSQL_PASSWORD: your_password
-    ports:
-      - "3306:3306"
+    # 端口不对外暴露，仅容器内部通信
+    # ports:
+    #   - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -28,8 +29,9 @@ services:
     image: redis:7-alpine
     container_name: flask_redis
     restart: always
-    ports:
-      - "6379:6379"
+    # 端口不对外暴露，仅容器内部通信
+    # ports:
+    #   - "6379:6379"
     volumes:
       - redis_data:/data
     networks:

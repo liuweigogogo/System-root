@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🚀 Flask 文件转换系统
 
 一个功能完善的文件转换和用户管理系统，基于 Flask + MySQL + Redis 架构，支持 Docker 一键部署。
@@ -481,3 +482,6 @@ docker-compose exec nginx tail -f /var/log/nginx/access.log
 <p align="center">
   Made with ❤️ by Your Team
 </p>
+=======
+# System-root
+>>>>>>> 3a0d0f16c07866f6bbd1943bbb46dbddd40224a7

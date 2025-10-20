@@ -36,12 +36,22 @@ check_dependencies() {
         exit 1
     fi
     
-    if ! command -v docker-compose &> /dev/null; then
-        print_error "Docker Compose 未安装，请先安装 Docker Compose"
+    # 检查 Docker Compose（兼容新旧版本）
+    if docker compose version &> /dev/null; then
+        DOCKER_COMPOSE="docker compose"
+        print_info "检测到 Docker Compose V2 (docker compose)"
+    elif command -v docker-compose &> /dev/null; then
+        DOCKER_COMPOSE="docker-compose"
+        print_info "检测到 Docker Compose V1 (docker-compose)"
+    else
+        print_error "Docker Compose 未安装"
+        print_info "请运行以下命令安装："
+        print_info "  sudo apt install docker-compose-plugin"
+        print_info "或访问: https://docs.docker.com/compose/install/"
         exit 1
     fi
     
-    print_info "依赖检查通过"
+    print_info "依赖检查通过 - 使用: ${DOCKER_COMPOSE}"
 }
 
 # 创建必要的目录
@@ -73,13 +83,13 @@ start_services() {
     create_directories
     check_env_file
     
-    docker-compose -f ${COMPOSE_FILE} up -d
+    ${DOCKER_COMPOSE} -f ${COMPOSE_FILE} up -d
     
     print_info "等待服务启动..."
     sleep 10
     
     print_info "服务状态："
-    docker-compose -f ${COMPOSE_FILE} ps
+    ${DOCKER_COMPOSE} -f ${COMPOSE_FILE} ps
     
     print_info "${PROJECT_NAME} 启动完成！"
     print_info "访问地址: http://localhost"
@@ -89,7 +99,7 @@ start_services() {
 # 停止服务
 stop_services() {
     print_info "停止 ${PROJECT_NAME} 服务..."
-    docker-compose -f ${COMPOSE_FILE} down
+    ${DOCKER_COMPOSE} -f ${COMPOSE_FILE} down
     print_info "${PROJECT_NAME} 已停止"
 }
 
@@ -103,19 +113,19 @@ restart_services() {
 # 查看日志
 view_logs() {
     print_info "查看服务日志（按 Ctrl+C 退出）..."
-    docker-compose -f ${COMPOSE_FILE} logs -f --tail=100
+    ${DOCKER_COMPOSE} -f ${COMPOSE_FILE} logs -f --tail=100
 }
 
 # 查看服务状态
 check_status() {
     print_info "${PROJECT_NAME} 服务状态："
-    docker-compose -f ${COMPOSE_FILE} ps
+    ${DOCKER_COMPOSE} -f ${COMPOSE_FILE} ps
 }
 
 # 构建镜像
 build_images() {
     print_info "构建 Docker 镜像..."
-    docker-compose -f ${COMPOSE_FILE} build --no-cache
+    ${DOCKER_COMPOSE} -f ${COMPOSE_FILE} build --no-cache
     print_info "镜像构建完成"
 }
 
@@ -126,7 +136,7 @@ clean_data() {
     
     if [ "$confirm" == "yes" ]; then
         print_info "清理中..."
-        docker-compose -f ${COMPOSE_FILE} down -v --rmi all
+        ${DOCKER_COMPOSE} -f ${COMPOSE_FILE} down -v --rmi all
         print_info "清理完成"
     else
         print_info "取消清理"
@@ -137,7 +147,7 @@ clean_data() {
 backup_database() {
     print_info "备份数据库..."
     BACKUP_FILE="backup_$(date +%Y%m%d_%H%M%S).sql"
-    docker-compose exec mysql mysqldump -u root -p file_converter > ${BACKUP_FILE}
+    ${DOCKER_COMPOSE} exec mysql mysqldump -u root -p file_converter > ${BACKUP_FILE}
     print_info "数据库已备份到: ${BACKUP_FILE}"
 }
 
