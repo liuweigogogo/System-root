@@ -8,14 +8,13 @@ from .LoggerConfig import log_db, log_error
 # 使用pymysql替代MySQLdb
 pymysql.install_as_MySQLdb()
 
-# 创建数据库类，初始化数据库配置(测试库)
+# 创建数据库类，初始化数据库配置
 class DatabaseConfig:
-    MYSQL_HOST = 'localhost'
-    MYSQL_USER = 'root'
-    MYSQL_PASSWORD = '123456'
-    MYSQL_DB = 'self_system'
-    DB_NAME = 'self_system'  # 添加这个属性
-    # 设置环境变量key
+    MYSQL_HOST = os.environ.get('DB_HOST', 'localhost')
+    MYSQL_USER = os.environ.get('DB_USER', 'root')
+    MYSQL_PASSWORD = os.environ.get('DB_PASSWORD', '123456')
+    MYSQL_DB = os.environ.get('DB_NAME', 'self_system')
+    DB_NAME = os.environ.get('DB_NAME', 'self_system')
     SECRET_KEY = os.environ.get('SECRET_KEY', 'your_secret_key_here_change_in_production@@@')
     
     @staticmethod

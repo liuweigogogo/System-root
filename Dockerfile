@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     gcc \
     default-libmysqlclient-dev \
     pkg-config \
+    libreoffice \
     && rm -rf /var/lib/apt/lists/*
 
 # 复制 requirements.txt

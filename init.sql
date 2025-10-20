@@ -1,8 +1,9 @@
 -- 初始化数据库脚本
+-- 初始化数据库脚本
 -- 创建数据库（如果不存在）
-CREATE DATABASE IF NOT EXISTS file_converter CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS self_system CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-USE file_converter;
+USE self_system;
 
 -- 用户表
 CREATE TABLE IF NOT EXISTS users (
