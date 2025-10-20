@@ -13,8 +13,8 @@ class DatabaseConfig:
     MYSQL_HOST = os.environ.get('DB_HOST', 'localhost')
     MYSQL_USER = os.environ.get('DB_USER', 'root')
     MYSQL_PASSWORD = os.environ.get('DB_PASSWORD', '123456')
-    MYSQL_DB = os.environ.get('DB_NAME', 'self_system')
-    DB_NAME = os.environ.get('DB_NAME', 'self_system')
+    MYSQL_DB = os.environ.get('DB_NAME', 'file_converter')
+    DB_NAME = os.environ.get('DB_NAME', 'file_converter')
     SECRET_KEY = os.environ.get('SECRET_KEY', 'your_secret_key_here_change_in_production@@@')
     
     @staticmethod

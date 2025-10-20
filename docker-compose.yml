@@ -8,7 +8,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: Flask@2024!Secure
-      MYSQL_DATABASE: self_system
+      MYSQL_DATABASE: file_converter
       MYSQL_USER: flask_user
       MYSQL_PASSWORD: Flask@2024!Secure
     # 端口不对外暴露，仅容器内部通信
@@ -54,7 +54,7 @@ services:
       - DB_PORT=3306
       - DB_USER=flask_user
       - DB_PASSWORD=Flask@2024!Secure
-      - DB_NAME=self_system
+      - DB_NAME=file_converter
       - REDIS_HOST=redis
       - REDIS_PORT=6379
     volumes:
