@@ -15,7 +15,7 @@ class DatabaseConfig:
     MYSQL_PASSWORD = os.environ.get('DB_PASSWORD', '123456')
     MYSQL_DB = os.environ.get('DB_NAME', 'file_converter')
     DB_NAME = os.environ.get('DB_NAME', 'file_converter')
-    SECRET_KEY = os.environ.get('SECRET_KEY', 'your_secret_key_here_change_in_production@@@')
+    SECRET_KEY = os.environ.get('SECRET_KEY', 'a05ab64b33707b594e053d99537e300ef29295684c8ceeb03655a3d03aa01c55')
     
     @staticmethod
     def get_connection():

@@ -7,11 +7,10 @@ services:
     container_name: flask_mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: Flask@2024!Secure
       MYSQL_DATABASE: file_converter
-    # 端口不对外暴露，仅容器内部通信
-    # ports:
-    #   - "3306:3306"
+      MYSQL_USER: flask_user
+      MYSQL_PASSWORD: Flask@2024!Secure
     volumes:
       - mysql_data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -27,9 +26,6 @@ services:
     image: redis:7-alpine
     container_name: flask_redis
     restart: always
-    # 端口不对外暴露，仅容器内部通信
-    # ports:
-    #   - "6379:6379"
     volumes:
       - redis_data:/data
     networks:
@@ -50,8 +46,8 @@ services:
     environment:
       - DB_HOST=mysql
       - DB_PORT=3306
-      - DB_USER=root
-      - DB_PASSWORD=123456
+      - DB_USER=flask_user
+      - DB_PASSWORD=Flask@2024!Secure
       - DB_NAME=file_converter
       - REDIS_HOST=redis
       - REDIS_PORT=6379
@@ -73,8 +69,8 @@ services:
     container_name: flask_nginx
     restart: always
     ports:
-      - "8080:80"    # 使用 8080 端口避免冲突
-      - "8443:443"   # HTTPS 使用 8443
+      - "8080:80"
+      - "8443:443"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/ssl:/etc/nginx/ssl
